@@ -1,0 +1,349 @@
+swagger: "2.0"
+info:
+  description: Servidor HTTP para la API ReST del proyecto
+  version: "1.0.0"
+  title: ReST API HTTP server
+consumes:
+  - application/json
+produces:
+  - application/json
+
+basePath: /api
+
+# Rutas servidas por la API
+paths:
+  /employee:
+    get:
+      operationId: Employee.read_all
+      tags:
+        - Employee
+      summary: Lee la lista de empleados completa
+      description: Lee la lista de empleados completa
+      parameters:
+        - name: length
+          in: query
+          type: integer
+          description: Número de empleados que recuperar
+          required: false
+      responses:
+        200:
+          description: Lectura de la tabla de empleados correcta
+          schema:
+            type: array
+            items:
+              properties:
+                email:
+                  type: string
+                name:
+                  type: string
+                is_admin:
+                  type: string
+
+    post:
+      operationId: Employee.create_employee
+      tags:
+        - Employee
+      summary: Crear un nuevo empleado
+      description: Crear un nuevo empleado
+      parameters:
+        - name: employee
+          in: body
+          description: Empleado a crear
+          required: True
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+                description: Email del empleado
+              password:
+                type: string
+                description: Contraseña del empleado
+              name:
+                type: string
+                description: Nombre del empleado
+              is_admin:
+                type: boolean
+                description: Is the new employee an admin in the app
+      responses:
+        201:
+          description: Empleado creado satisfactoriamente
+        400:
+          description: El empleado ya existe en la base de datos
+
+
+  /employee/{email}:
+    delete:
+      operationId: Employee.delete_employee
+      tags:
+        - Employee
+      summary: Borrar un empleado de la base de datos
+      description: Borrar un empleado de la base de datos
+      parameters:
+        - name: email
+          in: path
+          description: Email del empleado a borrar
+          type: string
+          required: True
+      responses:
+        204:
+          description: Empleado borrado satisfactoriamente
+        400:
+          description: Error al intentar borrar al empleado
+      
+  /login:
+    post:
+      operationId: Employee.login
+      tags:
+        - Employee
+      summary: Intenta hacer login en el servidor
+      description: Intenta hacer login en el servidor con los credenciales recibidos
+      parameters:
+        - name: employee
+          in: body
+          description: Empleado intentando hacer login
+          required: True
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
+                description: Nombre de usuario del empleado (email)
+              password:
+                type: string
+                description: Contraseña del empleado
+      responses:
+        200:
+          description: Login correcto
+          
+  /getInfo/{name}:
+    get:
+      operationId: Employee.read_name
+      tags:
+        - Employee
+      summary: Lee los datos de los empleados a partir del nombre especificado
+      description: Lee los datos de los empleados a partir del nombre especificado
+      parameters:
+        - name: name
+          in: path
+          type: string
+          description: Nombre del empleado
+          required: True
+      responses:
+        200:
+          description: Datos recuperados correctamente
+          schema:
+            type: array
+            items:
+              properties:
+                email:
+                  type: string
+                name:
+                  type: string
+                is_admin:
+                  type: string
+  
+  /schedule:
+    post:
+      operationId: Schedule.create_schedule
+      tags:
+        - Schedule
+      summary: Crea un nuevo horario para un empleado
+      description: Crea un nuevo horario para un empleado
+      parameters:
+        - name: schedule
+          in: body
+          description: Datos del horario a crear
+          required: True
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+                description: Email del empleado
+              date:
+                type: string
+                description: Fecha del horario a crear
+              start_time:
+                type: string
+                description: Hora de inicio de la jornada
+              end_time:
+                type: string
+                description: Hora de finalización de la jornada
+      responses:
+        201:
+          description: Horario creado correctamente
+        400:
+          description: El empleado especificado no existe en la base de datos
+        409:
+          description: El horario ya existe en la base de datos
+
+  /schedule/{email}:
+    get:
+      operationId: Schedule.get_schedule_info
+      tags:
+        - Schedule
+      summary: Lee la información de horario para un empleado en concreto
+      description: Lee la información de horario para un empleado en concreto
+      parameters:
+        - name: email
+          in: path
+          type: string
+          description: Email del empleado
+          required: True
+      responses:
+        200:
+          description: Datos de horario recuperados correctamente
+          schema:
+            type: array
+            items:
+              properties:
+                email:
+                  type: string
+                date:
+                  type: string
+                start_time:
+                  type: string
+                end_time:
+                  type: string
+
+  /schedule/{email}/{date}:
+    get:
+      operationId: Schedule.get_specific_schedule_info
+      tags:
+        - Schedule
+      summary: Lee la información de horario para un empleado en una fecha especificada
+      description: Lee la información de horario para un empleado en una fecha especificada
+      parameters:
+        - name: email
+          in: path
+          type: string
+          description: Email del empleado
+          required: True
+        - name: date
+          in: path
+          type: string
+          description: Fecha del registro de horario (formato -> yyyy-mm-dd)
+          required: True
+      responses:
+        200:
+          description: Datos del horario recuperados correctamente
+
+    delete:
+      operationId: Schedule.delete_schedule
+      tags:
+        - Schedule
+      summary: Borra un registro de horario de la base de datos
+      description: Borra un registro de horario de la base de datos
+      parameters:
+        - name: email
+          in: path
+          type: string
+          description: Email del empleado
+          required: True
+        - name: date
+          in: path
+          type: string
+          description: Fecha del registro de horario (formato -> yyyy-mm-dd)
+          required: True
+      responses:
+        204:
+          description: Horario borrado satisfactoriamente
+        400:
+          description: Error al intentar borrar los datos del horario
+
+  /attendance/{email}:
+    get:
+      operationId: Schedule.get_attendance_info
+      tags:
+        - Attendance
+      summary: Lee la información de asistencia de un empleado
+      description: Lee la información de asistencia de un empleado
+      parameters:
+        - name: email
+          in: path
+          type: string
+          description: Email del empleado
+          required: True
+      responses:
+        200:
+          description: Datos de asistencia recuperados correctamente
+          schema:
+            type: array
+            items:
+              properties:
+                email:
+                  type: string
+                date:
+                  type: string
+                arrived_time:
+                  type: string
+                left_time:
+                  type: string
+
+    put:
+      operationId: Schedule.create_attendance_record
+      tags:
+        - Attendance
+      summary: Actualiza la información de asistencia para un empleado en la base de datos
+      description: Actualiza la información de asistencia para un empleado en la base de datos
+      parameters:
+        - name: email
+          in: path
+          description: Email del empleado
+          type: string
+          required: True
+      responses:
+        200:
+          description: Datos actualizados correctamente
+        400:
+          description: Error al intentar actualizar los datos de asistencia
+                  
+  /attendance/{email}/{date}:
+      get:
+        operationId: Schedule.get_specific_attendance_info
+        tags:
+          - Attendance
+        summary: Lee la información de asistencia para un empleado en una fecha concreta
+        description: Lee la información de asistencia para un empleado en una fecha concreta, la fecha debe haber pasado ya
+        parameters:
+          - name: email
+            in: path
+            type: string
+            description: Email del empleado
+            required: True
+          - name: date
+            in: path
+            type: string
+            description: Fecha del registro de horario (formato -> yyyy-mm-dd)
+            required: True
+        responses:
+          200:
+            description: Datos de asistencia recuperados correctamente
+  
+  /analysis/{email}/{month}/{year}:
+      get:
+        operationId: Schedule.get_analysis
+        tags:
+          - Attendance
+        summary: Devuelve la información de análisis sobre la asistencia de un empleado en un determinado mes
+        description: Devuelve la información de análisis sobre la asistencia de un empleado en un determinado mes
+        parameters:
+          - name: email
+            in: path
+            type: string
+            description: Email del empleado
+            required: True
+          - name: month
+            in: path
+            type: string
+            description: Mes sobre el que ejecutar el análisis
+            required: True
+          - name: year
+            in: path
+            type: string
+            description: Año sobre el que ejecutar el análisis
+            required: True
+        responses:
+          200:
+            description: Información recuperada correctamente

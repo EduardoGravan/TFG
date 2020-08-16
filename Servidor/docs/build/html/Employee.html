@@ -1,0 +1,172 @@
+
+<!DOCTYPE html>
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Employee module &#8212; documentación de TFG - ReST Server - 1.0.0</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/translations.js"></script>
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Búsqueda" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-Employee">
+<span id="employee-module"></span><h1>Employee module<a class="headerlink" href="#module-Employee" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>Este es el módulo para empleados que contiene todas las llamadas ReST relacionadas
+con la tabla Employee en la base de datos</p>
+<dl class="py function">
+<dt id="Employee.create_employee">
+<code class="sig-prename descclassname">Employee.</code><code class="sig-name descname">create_employee</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">employee</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Employee.create_employee" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Esta función intenta crear un nuevo empleado en la base de datos</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><p><strong>employee</strong> – objeto que contiene toda la información necesaria para crear el empleado</p>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><p>201 si correcto, 400 si hay error</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="Employee.delete_employee">
+<code class="sig-prename descclassname">Employee.</code><code class="sig-name descname">delete_employee</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">email</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Employee.delete_employee" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Esta función intenta borrar a un empelado de la base de datos</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><p><strong>email</strong> – string con el email del empleado</p>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><p>204 si correcto, 400 si hay error</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="Employee.login">
+<code class="sig-prename descclassname">Employee.</code><code class="sig-name descname">login</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">employee</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Employee.login" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Esta función comprueba el nombre de usuario y contraseña proporcionados por el usuario
+e intenta recuperar todos los datos del empleado si los datos proporcionados coinciden con los de la base de datos</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><p><strong>employee</strong> – objeto que contiene el nombre de usuario y contraseña</p>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><p>200 si correcto, 400 si hay error</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="Employee.read_all">
+<code class="sig-prename descclassname">Employee.</code><code class="sig-name descname">read_all</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Employee.read_all" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Esta función devuelve la lista completa de empleados</p>
+<dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>json con toda la lista de empleados</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="Employee.read_name">
+<code class="sig-prename descclassname">Employee.</code><code class="sig-name descname">read_name</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Employee.read_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Esta función recupera todos los empleados cuyo nombre se corresponde con el parámetro</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><p><strong>name</strong> – string con el nombre a buscar en la base de datos</p>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><p>200 si correcto y json con la información de los empleados, 400 si hay error</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">TFG - ReST Server</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navegación</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Búsqueda rápida</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Ir a" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Eduardo Graván Serrano.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/Employee.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

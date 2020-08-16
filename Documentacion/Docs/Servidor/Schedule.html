@@ -1,0 +1,230 @@
+
+<!DOCTYPE html>
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Schedule module &#8212; documentación de TFG - ReST Server - 1.0.0</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/translations.js"></script>
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Búsqueda" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-Schedule">
+<span id="schedule-module"></span><h1>Schedule module<a class="headerlink" href="#module-Schedule" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>Este es el módulo para horarios que contiene todas las llamadas ReST relacionadas
+con las tablas de Schedule/Attendance en la base de datos</p>
+<dl class="py function">
+<dt id="Schedule.create_attendance_record">
+<code class="sig-prename descclassname">Schedule.</code><code class="sig-name descname">create_attendance_record</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">email</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Schedule.create_attendance_record" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Esta función crea un registro de asistencia para un empleado</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><p><strong>email</strong> – string con el email del empleado</p>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><p>string que especifica que cambios se han hecho en la base de datos</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="Schedule.create_schedule">
+<code class="sig-prename descclassname">Schedule.</code><code class="sig-name descname">create_schedule</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">schedule</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Schedule.create_schedule" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Esta función intenta crear un nuevo registro de horario en la base de datos</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><p><strong>employee</strong> – object que contiene toda la información necesaria para crear el horario</p>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><p>201 si correcto, 400 si no existe el empleado, 409 si el horario ya existe</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="Schedule.delete_schedule">
+<code class="sig-prename descclassname">Schedule.</code><code class="sig-name descname">delete_schedule</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">email</span></em>, <em class="sig-param"><span class="n">date</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Schedule.delete_schedule" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Esta función intenta borrar un registro de horario de la base de datos</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>email</strong> – string con el email del empleado</p></li>
+<li><p><strong>date</strong> – string con la fecha del horario</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><p>204 si correcto, 400 si hay error</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="Schedule.get_analysis">
+<code class="sig-prename descclassname">Schedule.</code><code class="sig-name descname">get_analysis</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">email</span></em>, <em class="sig-param"><span class="n">month</span></em>, <em class="sig-param"><span class="n">year</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Schedule.get_analysis" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Esta función recupera datos de análisis sobre las horas trabajadas por un empleado
+en un determinado mes</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>email</strong> – string con el email del empleado</p></li>
+<li><p><strong>month</strong> – string con el mes a analizar</p></li>
+<li><p><strong>year</strong> – string con el año a analizar</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><p>json con la información de análisis</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="Schedule.get_attendance_info">
+<code class="sig-prename descclassname">Schedule.</code><code class="sig-name descname">get_attendance_info</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">email</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Schedule.get_attendance_info" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Esta función recupera todos los registros de asistencia de un empleado</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><p><strong>email</strong> – email del empleado</p>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><p>json con la información de asistencia</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="Schedule.get_schedule_info">
+<code class="sig-prename descclassname">Schedule.</code><code class="sig-name descname">get_schedule_info</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">email</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Schedule.get_schedule_info" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Esta función recupera todos los registros de horario para un empleado</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><p><strong>email</strong> – email del empleado</p>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><p>json con toda la información de los horarios</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="Schedule.get_specific_attendance_info">
+<code class="sig-prename descclassname">Schedule.</code><code class="sig-name descname">get_specific_attendance_info</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">email</span></em>, <em class="sig-param"><span class="n">date</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Schedule.get_specific_attendance_info" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Esta función recupera la información de asistencia para un empleado en un día especificado</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>email</strong> – string con el email del empleado</p></li>
+<li><p><strong>date</strong> – string con la fecha del registro de asistencia</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><p>json con los datos del registro de asistencia</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="Schedule.get_specific_schedule_info">
+<code class="sig-prename descclassname">Schedule.</code><code class="sig-name descname">get_specific_schedule_info</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">email</span></em>, <em class="sig-param"><span class="n">date</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Schedule.get_specific_schedule_info" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Esta función devuelve la información de horario de un empleado para un día especificado</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>email</strong> – string con el email del empleado</p></li>
+<li><p><strong>date</strong> – string con la fecha del horario</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><p>json con los datos del horario</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">TFG - ReST Server</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navegación</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Búsqueda rápida</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Ir a" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Eduardo Graván Serrano.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/Schedule.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,2 @@
+Especificación NFC type 4:
+    http://apps4android.org/nfc-specifications/NFCForum-TS-Type-4-Tag_2.0.pdf

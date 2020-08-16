@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".CheckScheduleActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/checkSchedule_text"
+            android:text="@string/check_schedule_text"
+            android:textSize="32sp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true" android:layout_marginTop="46dp"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/date_text_view"
+            android:text="@string/check_schedule_date_text"
+            android:layout_marginTop="152dp" android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"/>
+
+    <EditText
+            android:layout_width="289dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/date_check_schedule"
+            android:labelFor="@id/date_check_schedule"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:inputType="text"
+            android:layout_marginTop="171dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"/>
+
+    <Button
+            android:layout_width="199dp"
+            android:layout_height="61dp"
+            android:id="@+id/check_schedule_button"
+            android:text="@string/check_schedule_button_text"
+            android:layout_marginTop="236dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"/>
+
+    <TextView
+            android:id="@+id/check_schedule_textView"
+            android:layout_width="216dp"
+            android:layout_height="171dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="319dp"
+            android:layout_marginBottom="30dp"
+            android:textAlignment="center"
+    />
+
+    </RelativeLayout>
+</ScrollView>

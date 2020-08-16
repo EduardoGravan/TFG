@@ -1,0 +1,149 @@
+
+<!DOCTYPE html>
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>time_library module &#8212; documentación de TFG - ReST Server - 1.0.0</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/translations.js"></script>
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Búsqueda" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-time_library">
+<span id="time-library-module"></span><h1>time_library module<a class="headerlink" href="#module-time_library" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>Librería propia que recoge las funciones de tiempo usadas a la hora de hacer cálculos
+sobre timestamps o inserciones en la base de datos.</p>
+<dl class="py function">
+<dt id="time_library.get_timestamp">
+<code class="sig-prename descclassname">time_library.</code><code class="sig-name descname">get_timestamp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#time_library.get_timestamp" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Función que devuelve el timestamp actual</p>
+<dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><p>timestamp en formato («%H:%M:%S %Y-%m-%d»)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="time_library.hour_difference">
+<code class="sig-prename descclassname">time_library.</code><code class="sig-name descname">hour_difference</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">t1</span></em>, <em class="sig-param"><span class="n">t2</span></em><span class="sig-paren">)</span><a class="headerlink" href="#time_library.hour_difference" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Función que devuelve la diferencia en horas entre dos timestamps</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>t1</strong> – primer timestamp</p></li>
+<li><p><strong>t2</strong> – segundo timestamp</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><p>int con las horas de diferencia entre t1 y t2</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="time_library.valid_time_difference">
+<code class="sig-prename descclassname">time_library.</code><code class="sig-name descname">valid_time_difference</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">t1</span></em>, <em class="sig-param"><span class="n">t2</span></em><span class="sig-paren">)</span><a class="headerlink" href="#time_library.valid_time_difference" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Función para comprobar si la diferencia de tiempo es válida (&gt; 1 minuto)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>t1</strong> – primer timestamp</p></li>
+<li><p><strong>t2</strong> – segundo timestamp</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><p>true si ha pasado más de 1 minuto, false si no</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">TFG - ReST Server</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navegación</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Búsqueda rápida</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Ir a" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Eduardo Graván Serrano.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/time_library.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

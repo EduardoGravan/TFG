@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">TFG</string>
+    <string name="read_tag_button">Leer etiqueta</string>
+    <string name="emulate_tag_button">Emular etiqueta</string>
+    <string name="emular_etiqueta">Emular etiqueta</string>
+    <string name="servicedesc">TFG - APDU</string>
+    <string name="aiddescription">aiddescription</string>
+    <string name="title_activity_login">Sign in</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="login">Login</string>
+    <string name="email_text_view">E-mail</string>
+    <string name="password_text_view">Contraseña</string>
+    <string name="login_button_text">Login</string>
+    <string name="log_out">Cerrar sesión</string>
+    <string name="tagInfoLabelText">Información de la etiqueta</string>
+    <string name="read_nfc_tag_button">Leer tarjeta</string>
+    <string name="alta_de_empleado">Alta de empleado</string>
+    <string name="register_employee">Registro</string>
+    <string name="register_button_text">Registrar</string>
+    <string name="confirm_password_text">Confirmar contraseña</string>
+    <string name="name_text">Nombre</string>
+    <string name="is_admin_text">Admin</string>
+    <string name="check_schedule">Comprobar horario</string>
+    <string name="check_schedule_text">Comprobar horario</string>
+    <string name="check_schedule_date_text">Fecha (yyyy-mm-dd)</string>
+    <string name="check_schedule_button_text">Comprobar horario</string>
+</resources>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
+    <Button
+            android:layout_width="350dp"
+            android:layout_height="180dp"
+            android:id="@+id/readNFCButton"
+            android:text="@string/read_tag_button"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="68dp" android:layout_centerHorizontal="true"/>
+
+    <Button
+            android:layout_width="350dp"
+            android:layout_height="180dp"
+            android:id="@+id/serveNFCTagButton"
+            android:text="@string/emulate_tag_button"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="68dp" android:layout_centerHorizontal="true"/>
+
+    <Button android:layout_width="350dp"
+            android:layout_height="180dp"
+            android:id="@+id/employeeInfoButton"
+            android:text="@string/alta_de_empleado"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="264dp" android:layout_centerHorizontal="true"/>
+
+    <Button android:layout_width="350dp"
+            android:layout_height="180dp"
+            android:id="@+id/employeeCheckScheduleButton"
+            android:text="@string/check_schedule"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="264dp" android:layout_centerHorizontal="true"/>
+
+</RelativeLayout>

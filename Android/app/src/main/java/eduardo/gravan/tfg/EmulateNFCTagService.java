@@ -241,7 +241,7 @@ public class EmulateNFCTagService extends HostApduService {
      * @param language string con idioma del mensaje (siempre será "en")
      * @param text string con el texto del mensaje NDEF
      * @param id metadata del identificador
-     * @return
+     * @return NdefRecord con el record NDEF construido del mensaje
      */
     private NdefRecord createTextRecord(String language, String text, byte[] id) {
         byte[] languageBytes;

@@ -200,7 +200,7 @@ public class EmulateNFCTagService extends HostApduService {
             return response;
         }
 
-        // Sixth command: send the NDEF message
+        // Sixth command: Read NDEF message
         if (Arrays.equals(Arrays.copyOfRange(commandApdu, 0, 2), NDEF_READ_BINARY)) {
             int offset = Integer.parseInt(toHex(Arrays.copyOfRange(commandApdu, 2, 4)), 16);
             int length =  Integer.parseInt(toHex(Arrays.copyOfRange(commandApdu, 4, 5)), 16);

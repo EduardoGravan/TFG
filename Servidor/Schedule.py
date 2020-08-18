@@ -201,11 +201,14 @@ def create_attendance_record(email):
 
         # En caso contrario, si ya se ha registrado la llegada pero no se ha registrado la salida y
         # ha pasado más de un minuto desde el registro anterior, se registra la hora de salida
-        elif result['left_time'] is None and time_library.valid_time_difference(result['arrived_time'], timestamp[0]):
-            hours_worked = time_library.hour_difference(result['arrived_time'], timestamp[0])
-            cursor.execute(f"UPDATE Attendance SET left_time=\'{timestamp[0]}\', hours_worked={hours_worked} WHERE email=\'{email}\' AND date=\'{timestamp[1]}\';")
-            response_str = "left_time updated"
-            response_code = 200
+        elif result['left_time'] is None:
+            if time_library.valid_time_difference(result['arrived_time'], timestamp[0]):
+                hours_worked = time_library.hour_difference(result['arrived_time'], timestamp[0])
+                cursor.execute(f"UPDATE Attendance SET left_time=\'{timestamp[0]}\', hours_worked={hours_worked} WHERE email=\'{email}\' AND date=\'{timestamp[1]}\';")
+                response_str = "left_time updated"
+                response_code = 200
+            else:
+                response_str = "update too soon"
 
         # En el caso de que tanto la hora de llegada como la de salida ya tengan datos, no se puede
         # actualizar nada más en al base de datos y por lo tanto la consulta es un error

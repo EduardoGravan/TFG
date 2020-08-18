@@ -185,6 +185,9 @@ public class ReadNFCActivity extends AppCompatActivity implements NfcAdapter.Rea
             case "table already updated":
                 txtTagContent.setText("Error. El usuario " + tagContent + " ya ha fichado 2 veces hoy");
                 break;
+            case "update too soon":
+                txtTagContent.setText("Error. No ha pasado 1 minuto desde que el usuario intentó fichar");
+                break;
             case "no data to update":
                 txtTagContent.setText("Error. El usuario " + tagContent + " no tiene datos de asistencia para el día de hoy");
                 break;

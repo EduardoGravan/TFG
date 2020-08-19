@@ -70,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
         password = passwordTextField.getText().toString();
 
         if (!user.equals("") && !password.equals("")) {
-            AsyncGetLoginInfoTask task = new AsyncGetLoginInfoTask(this, user, password);
+            AsyncGetLoginInfoTask task = new AsyncGetLoginInfoTask(user, password);
             task.execute();
             // Create the alert dialog with the progress bar
             dialog = new AlertDialogFactory(this, "Enviando credenciales al servidor").create();
@@ -126,13 +126,11 @@ public class LoginActivity extends AppCompatActivity {
      */
     private class AsyncGetLoginInfoTask extends AsyncTask<Void, Void, Void> {
         private int responseCode;
-        private LoginActivity loginActivity;
         private String user;
         private String password;
         private String response;
 
-        public AsyncGetLoginInfoTask(LoginActivity loginActivity, String user, String password) {
-            this.loginActivity = loginActivity;
+        public AsyncGetLoginInfoTask(String user, String password) {
             this.user = user;
             this.password = password;
             this.responseCode = 0;
@@ -149,7 +147,7 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                // Set up the ReST API call to the HTTP server
+                // Configurar la llamada a la API ReST del servidor HTTP
                 HttpURLConnection connection = (HttpURLConnection) new URL("http://192.168.1.136:8080/api/login").openConnection();
                 connection.setConnectTimeout(5000);
                 connection.setRequestMethod("POST");
@@ -157,7 +155,7 @@ public class LoginActivity extends AppCompatActivity {
                 connection.setRequestProperty("Accept", "application/json");
                 connection.setDoOutput(true);
 
-                // Build the JSON body and write it to the request
+                // Construir el JSON y escribirlo en la petición
                 String jsonRequest = "{\"username\": \"" + user + "\", \"password\": \"" + password + "\"}";
                 OutputStream os = connection.getOutputStream();
                 byte[] input = jsonRequest.getBytes(StandardCharsets.UTF_8);
@@ -193,7 +191,7 @@ public class LoginActivity extends AppCompatActivity {
          */
         @Override
         protected void onPostExecute(Void result) {
-            loginActivity.updateUserInfo(responseCode, response);
+            updateUserInfo(responseCode, response);
         }
     }
 }

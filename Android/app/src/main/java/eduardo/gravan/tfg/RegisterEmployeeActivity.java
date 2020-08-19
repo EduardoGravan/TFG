@@ -80,7 +80,7 @@ public class RegisterEmployeeActivity extends AppCompatActivity {
                     "\"name\": \"" + name + "\", \"is_admin\": " + isAdmin + "}";
             Log.i ("attemptEmployeeRegister | jsonRequest", jsonRequest);
 
-            AsyncCreateEmployeeTask task = new AsyncCreateEmployeeTask(this, jsonRequest);
+            AsyncCreateEmployeeTask task = new AsyncCreateEmployeeTask(jsonRequest);
             task.execute();
 
             // Se crea el AlertDialog
@@ -155,12 +155,10 @@ public class RegisterEmployeeActivity extends AppCompatActivity {
      * comunicándose con la API ReST.
      */
     private class AsyncCreateEmployeeTask extends AsyncTask<Void, Void, Void> {
-        private final RegisterEmployeeActivity registerEmployeeActivity;
         private final String jsonRequest;
         private int responseCode;
 
-        public AsyncCreateEmployeeTask(RegisterEmployeeActivity registerEmployeeActivity, String jsonRequest) {
-            this.registerEmployeeActivity = registerEmployeeActivity;
+        public AsyncCreateEmployeeTask(String jsonRequest) {
             this.jsonRequest = jsonRequest;
             this.responseCode = 0;
         }
@@ -208,7 +206,7 @@ public class RegisterEmployeeActivity extends AppCompatActivity {
          */
         @Override
         protected void onPostExecute(Void result) {
-            registerEmployeeActivity.processResponse(responseCode);
+            processResponse(responseCode);
         }
     }
 }

@@ -72,7 +72,7 @@ public class CheckScheduleActivity extends AppCompatActivity {
             Toast.makeText(this, "Rellene el campo de fecha", Toast.LENGTH_LONG).show();
         }
         else if(checkDateFormat(date)) {
-            AsyncGetScheduleInfoTask task = new AsyncGetScheduleInfoTask(this, sharedPreferences.getString("USER", "error"), date);
+            AsyncGetScheduleInfoTask task = new AsyncGetScheduleInfoTask(sharedPreferences.getString("USER", "error"), date);
             task.execute();
 
             dialog = new AlertDialogFactory(this, "Enviando credenciales al servidor").create();
@@ -154,14 +154,12 @@ public class CheckScheduleActivity extends AppCompatActivity {
      * con la API ReST.
      */
     private class AsyncGetScheduleInfoTask extends AsyncTask<Void, Void, Void> {
-        private CheckScheduleActivity checkScheduleActivity;
         private String email;
         private String date;
         private String response;
         private int responseCode;
 
-        public AsyncGetScheduleInfoTask(CheckScheduleActivity checkScheduleActivity, String email, String date) {
-            this.checkScheduleActivity = checkScheduleActivity;
+        public AsyncGetScheduleInfoTask(String email, String date) {
             this.email = email;
             this.date = date;
             this.responseCode = 0;
@@ -213,7 +211,7 @@ public class CheckScheduleActivity extends AppCompatActivity {
          */
         @Override
         protected void onPostExecute(Void result) {
-            checkScheduleActivity.updateUserInfo(responseCode, response);
+            updateUserInfo(responseCode, response);
         }
     }
 }

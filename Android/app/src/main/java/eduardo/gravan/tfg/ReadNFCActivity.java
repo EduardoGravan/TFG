@@ -110,7 +110,7 @@ public class ReadNFCActivity extends AppCompatActivity implements NfcAdapter.Rea
                     ndef.close();
 
                     // Se lanza el hilo para comunicarse con el servidor
-                    AsyncSendAttendanceInfoTask task = new AsyncSendAttendanceInfoTask(this, tagContent);
+                    AsyncSendAttendanceInfoTask task = new AsyncSendAttendanceInfoTask(tagContent);
                     task.execute();
                 }
                 catch (IOException | FormatException e) {
@@ -204,12 +204,10 @@ public class ReadNFCActivity extends AppCompatActivity implements NfcAdapter.Rea
      * comunicándose con la API ReST
      */
     private class AsyncSendAttendanceInfoTask extends AsyncTask<Void, Void, Void> {
-        private final ReadNFCActivity readNFCActivity;
         private final String username;
         private String response;
 
-        public AsyncSendAttendanceInfoTask(ReadNFCActivity readNFCActivity, String username) {
-            this.readNFCActivity = readNFCActivity;
+        public AsyncSendAttendanceInfoTask(String username) {
             this.username = username;
         }
 
@@ -268,7 +266,7 @@ public class ReadNFCActivity extends AppCompatActivity implements NfcAdapter.Rea
          */
         @Override
         protected void onPostExecute(Void result) {
-            readNFCActivity.updateInterface(response);
+            updateInterface(response);
         }
     }
 }

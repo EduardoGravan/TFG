@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.*;
 import android.nfc.NfcAdapter;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -117,7 +116,7 @@ public class EmulateNFCTagActivity extends AppCompatActivity {
                 stopEmulationService();
             }
         });
-        messageView.setText("Emulando tarjeta");
+        messageView.setText("Emulando etiqueta...");
         dialog = builder.create();
 
         sharedPreferences = getSharedPreferences("LOGIN_INFO", Context.MODE_PRIVATE);
@@ -142,11 +141,6 @@ public class EmulateNFCTagActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, new IntentFilter("message"));
-
-        if (nfcAdapter == null || !nfcAdapter.isEnabled()) {
-            startActivity(new Intent(this, MainActivity.class));
-            finish();
-        }
     }
 
     /**
@@ -165,11 +159,14 @@ public class EmulateNFCTagActivity extends AppCompatActivity {
      * muestra el diálogo creado en el método "onCreate()", y llama al servicio.
      */
     private void initEmulationService() {
-        Intent intent = new Intent(this, EmulateNFCTagService.class);
-        intent.putExtra("ndefMessage", sharedPreferences.getString("USER", "error"));
-        dialog.show();
-        startService(intent);
-        Log.i("initEmulationService", "Launched emulation service");
+        // Solo podemos proceder si NFC está activado
+        if (checkNFCStatus()) {
+            Intent intent = new Intent(this, EmulateNFCTagService.class);
+            intent.putExtra("ndefMessage", sharedPreferences.getString("USER", "error"));
+            dialog.show();
+            startService(intent);
+            Log.i("initEmulationService", "Launched emulation service");
+        }
     }
 
     /**
@@ -180,6 +177,21 @@ public class EmulateNFCTagActivity extends AppCompatActivity {
         stopService(new Intent(this, EmulateNFCTagService.class));
 
         Log.i("stopEmulationService", "Stopped emulation service");
+    }
+
+    /**
+     * Método auxiliar encargado de comprobar que el teléfono tiene un adaptador NFC y que está activado.
+     * Devuelve un booleano indicando si está activo o no.
+     *
+     * @return True si el adaptador NFC está activo y funcionando, False si no
+     */
+    private boolean checkNFCStatus() {
+        if (nfcAdapter == null || !nfcAdapter.isEnabled()) {
+            Toast.makeText(this, "NFC debe estar activado", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        else
+            return true;
     }
 
     /**

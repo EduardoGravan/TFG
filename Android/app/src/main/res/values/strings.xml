@@ -4,7 +4,7 @@
     <string name="emulate_tag_button">Emular etiqueta</string>
     <string name="emular_etiqueta">Emular etiqueta</string>
     <string name="servicedesc">TFG - APDU</string>
-    <string name="aiddescription">aiddescription</string>
+    <string name="aiddescription">NDEF Application - TFG</string>
     <string name="title_activity_login">Sign in</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>

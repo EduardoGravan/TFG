@@ -2,7 +2,6 @@ package eduardo.gravan.tfg;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.nfc.*;
 import android.nfc.tech.Ndef;
 import android.os.AsyncTask;
@@ -51,21 +50,22 @@ public class ReadNFCActivity extends AppCompatActivity implements NfcAdapter.Rea
                 enableReaderMode();
             }
         });
-    }
 
-    /**
-     * Cada vez que la actividad se pone en primer plano debemos comprobar que el NFC está activado
-     * y funcionando. Si no es así, se nos devuelve al menú principal de la aplicación.
-     */
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        if(nfcAdapter == null || !nfcAdapter.isEnabled()) {
-            Toast.makeText(this, "NFC debe estar activado", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP));
-            finish();
-        }
+        // Se crea el AlertDialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View customView = inflater.inflate(R.layout.progress_alert_dialog, null);
+        TextView messageView = (TextView) customView.findViewById(R.id.loading_msg);
+        builder.setView(customView);
+        builder.setNegativeButton("Cancelar", null);
+        builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                disableReaderMode();
+            }
+        });
+        messageView.setText("Leyendo etiquetas NDEF cercanas...");
+        dialog = builder.create();
     }
 
     /**
@@ -132,31 +132,19 @@ public class ReadNFCActivity extends AppCompatActivity implements NfcAdapter.Rea
      * </p>
      */
     private void enableReaderMode() {
-        txtTagContent.setText("");
-        Bundle options = new Bundle();
-        // Se crea una opción para que haya un delay de 1 segundo entre lecturas
-        options.putInt(NfcAdapter.EXTRA_READER_PRESENCE_CHECK_DELAY, 1000);
+        // Solo podemos proceder si NFC está activado
+        if (checkNFCStatus()) {
+            txtTagContent.setText("");
+            Bundle options = new Bundle();
+            // Se crea una opción para que haya un delay de 1 segundo entre lecturas
+            options.putInt(NfcAdapter.EXTRA_READER_PRESENCE_CHECK_DELAY, 1000);
 
-        // Se activa el modo lectura para tarjetas NFC de tipo A
-        nfcAdapter.enableReaderMode(this, this, NfcAdapter.FLAG_READER_NFC_A, options);
-        Log.i("enableReaderMode", "Reader mode enabled");
+            // Se activa el modo lectura para tarjetas NFC de tipo A
+            nfcAdapter.enableReaderMode(this, this, NfcAdapter.FLAG_READER_NFC_A, options);
+            Log.i("enableReaderMode", "Reader mode enabled");
 
-        // Se crea el AlertDialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = getLayoutInflater();
-        View customView = inflater.inflate(R.layout.progress_alert_dialog, null);
-        TextView messageView = (TextView) customView.findViewById(R.id.loading_msg);
-        builder.setView(customView);
-        builder.setNegativeButton("Cancelar", null);
-        builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                disableReaderMode();
-            }
-        });
-        messageView.setText("Leyendo tarjetas NDEF cercanas...");
-        dialog = builder.create();
-        dialog.show();
+            dialog.show();
+        }
     }
 
     /**
@@ -165,6 +153,21 @@ public class ReadNFCActivity extends AppCompatActivity implements NfcAdapter.Rea
     private void disableReaderMode() {
         nfcAdapter.disableReaderMode(this);
         Log.i("disableReaderMode", "Reader mode disabled");
+    }
+
+    /**
+     * Método auxiliar encargado de comprobar que el teléfono tiene un adaptador NFC y que está activado.
+     * Devuelve un booleano indicando si está activo o no.
+     *
+     * @return True si el adaptador NFC está activo y funcionando, False si no
+     */
+    private boolean checkNFCStatus() {
+        if (nfcAdapter == null || !nfcAdapter.isEnabled()) {
+            Toast.makeText(this, "NFC debe estar activado", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        else
+            return true;
     }
 
     /**

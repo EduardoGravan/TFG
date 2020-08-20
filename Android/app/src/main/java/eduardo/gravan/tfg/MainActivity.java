@@ -13,6 +13,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
+/**
+ * Clase que representa la actividad de Android principal.
+ * Nexo de unión con el resto de menues de la aplicación.
+ */
 public class MainActivity extends AppCompatActivity {
     private Button readNFCButton;
     private Button emulateNFCButton;

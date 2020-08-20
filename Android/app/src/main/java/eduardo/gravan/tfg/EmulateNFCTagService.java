@@ -237,7 +237,7 @@ public class EmulateNFCTagService extends HostApduService {
     }
 
     /**
-     * Método encargado de crear el mensaje NDEF a partir de un String
+     * Método encargado de crear el registro NDEF a partir de un String
      * @param language string con idioma del mensaje (siempre será "en")
      * @param text string con el texto del mensaje NDEF
      * @param id metadata del identificador

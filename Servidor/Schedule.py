@@ -74,7 +74,7 @@ def delete_schedule(email, date):
     else:
         abort(400, "No schedule record for that employee on that day")
 
-def get_schedule_info(email):
+def get_schedule_info(email, month, year):
     """
     Esta función recupera todos los registros de horario para un empleado
 
@@ -86,7 +86,7 @@ def get_schedule_info(email):
     con.row_factory = sqlite3.Row
     cursor = con.cursor()
 
-    cursor.execute(f"SELECT * FROM Schedule WHERE email=\'{email}\';")
+    cursor.execute(f"SELECT * FROM Schedule WHERE email=\'{email}\' AND date BETWEEN \"{year}-{month}-01\" AND \"{year}-{month}-31\";")
 
     result = cursor.fetchall()
     cursor.close()
@@ -146,7 +146,7 @@ def get_attendance_info(email):
     else:
         abort(400, "No data for specified parameters")
 
-def get_specific_attendance_info(email, date):
+def get_specific_attendance_info(email, month, year):
     """
     Esta función recupera la información de asistencia para un empleado en un día especificado
 
@@ -160,9 +160,9 @@ def get_specific_attendance_info(email, date):
     con.row_factory = sqlite3.Row
     cursor = con.cursor()
 
-    cursor.execute(f"SELECT email, date, arrived_time, left_time FROM Attendance WHERE email=\'{email}\' AND date=\"{date}\" AND date <= \"{current_date}\";")
+    cursor.execute(f"SELECT email, date, arrived_time, left_time FROM Attendance WHERE email=\'{email}\' AND date BETWEEN \"{year}-{month}-01\" AND \"{year}-{month}-31\";")
 
-    result = cursor.fetchone()
+    result = cursor.fetchall()
     cursor.close()
     con.close()
 

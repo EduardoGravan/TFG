@@ -34,8 +34,10 @@ public class AttendanceInfo extends javax.swing.JFrame {
         jButtonSearch = new javax.swing.JButton();
         jTextFieldEmail = new javax.swing.JTextField();
         jLabelEmail = new javax.swing.JLabel();
-        jTextFieldDate = new javax.swing.JTextField();
-        jLabelDate = new javax.swing.JLabel();
+        jLabelMonth = new javax.swing.JLabel();
+        jLabelMonth1 = new javax.swing.JLabel();
+        jComboBoxMonth = new javax.swing.JComboBox<>();
+        jComboBoxYear = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("TFG - Admin Panel");
@@ -84,7 +86,13 @@ public class AttendanceInfo extends javax.swing.JFrame {
 
         jLabelEmail.setText("Email del empleado");
 
-        jLabelDate.setText("Fecha (yyyy-mm-dd, opcional)");
+        jLabelMonth.setText("Mes a analizar");
+
+        jLabelMonth1.setText("Año a analizar");
+
+        jComboBoxMonth.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" }));
+
+        jComboBoxYear.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2020" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -94,14 +102,19 @@ public class AttendanceInfo extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(75, 75, 75)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextFieldDate, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelEmail)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jLabelDate)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabelMonth, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabelMonth1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jComboBoxYear, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jComboBoxMonth, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButtonSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jTextFieldEmail, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(75, Short.MAX_VALUE))
@@ -115,13 +128,20 @@ public class AttendanceInfo extends javax.swing.JFrame {
                 .addComponent(jLabelEmail)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabelDate)
-                    .addComponent(jButtonSearch))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFieldDate, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonSearch))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabelMonth)
+                            .addComponent(jComboBoxMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabelMonth1)
+                            .addComponent(jComboBoxYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(44, 44, 44))
         );
@@ -147,16 +167,16 @@ public class AttendanceInfo extends javax.swing.JFrame {
      */
     private void jButtonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchActionPerformed
         String email = jTextFieldEmail.getText();
-        String date = jTextFieldDate.getText();
+        String month = (jComboBoxMonth.getSelectedIndex() > 8) 
+                ? "" + (1 + jComboBoxMonth.getSelectedIndex()) 
+                : "0" + (1 + jComboBoxMonth.getSelectedIndex());
+        String year = (String) jComboBoxYear.getSelectedItem();
         
         if (email.equals("")) {
             JOptionPane.showMessageDialog(this, "Introduce el email del empleado a buscar", "Consultar información", JOptionPane.PLAIN_MESSAGE);
         } 
-        else if (date.equals("") || checkDateFormat(date)){
-            sendHTTPRequest(email, date);
-        }
         else {
-            JOptionPane.showMessageDialog(this, "Error. El formato de la fecha no es válido (ej. 09/08/2020)", "Error", JOptionPane.ERROR_MESSAGE);
+            sendHTTPRequest(email, month, year);
         }
     }//GEN-LAST:event_jButtonSearchActionPerformed
     
@@ -170,18 +190,14 @@ public class AttendanceInfo extends javax.swing.JFrame {
      * la GUI.
      * 
      * @param email string con el email del empleado que se quiere analizar
-     * @param date  fecha del registro de asistencia que se quiere analizar
+     * @param month mes del registro de asistencia que se quiere analizar
+     * @param year  año del registro de asistencia que se quiere analizar
      */
-    private void sendHTTPRequest(String email, String date) {
+    private void sendHTTPRequest(String email, String month, String year) {
         try {
             // Configurar la llamada HTTP al servidor ReST
-            HttpURLConnection connection;
-            if(date.equals("")) {
-                connection = (HttpURLConnection) new URL("http://192.168.1.136:8080/api/attendance/" + email).openConnection(); 
-            }
-            else {
-                connection = (HttpURLConnection) new URL("http://192.168.1.136:8080/api/attendance/" + email + "/" + date).openConnection();
-            }
+            HttpURLConnection connection = (HttpURLConnection) new URL("http://192.168.1.136:8080/api/attendance/" + email + "/" + month + "/" + year).openConnection(); 
+
             connection.setConnectTimeout(5000);
             connection.setRequestMethod("GET");
             
@@ -211,27 +227,6 @@ public class AttendanceInfo extends javax.swing.JFrame {
         }
     }
     
-    /**
-     * Función auxilar encargada de comprobar que la fecha se encuentra
-     * en el formato correcto para poder realizar la consulta a la base de datos.
-     * Simplemente mira que esté en formato "xxxx-xx-xx".
-     * 
-     * @param date string con la fecha cuyo formato se quiere comprobar
-     * @return true si la fecha está en formato correcto, false si no
-     */
-    private boolean checkDateFormat(String date) {
-        String [] parts = date.split("-");
-        if(parts.length != 3)
-            return false;
-        else if(parts[0].length() != 4)
-            return false;
-        else if(parts[1].length() != 2)
-            return false;
-        else if(parts[2].length() != 2)
-            return false;
-        else
-            return true;
-    }
     
     /**
      * Función auxilar encargada de rellenar la tabla de la GUI con la información
@@ -259,12 +254,14 @@ public class AttendanceInfo extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonSearch;
+    private javax.swing.JComboBox<String> jComboBoxMonth;
+    private javax.swing.JComboBox<String> jComboBoxYear;
     private javax.swing.JLabel jLabelAttendanceInfo;
-    private javax.swing.JLabel jLabelDate;
     private javax.swing.JLabel jLabelEmail;
+    private javax.swing.JLabel jLabelMonth;
+    private javax.swing.JLabel jLabelMonth1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable;
-    private javax.swing.JTextField jTextFieldDate;
     private javax.swing.JTextField jTextFieldEmail;
     // End of variables declaration//GEN-END:variables
 }

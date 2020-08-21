@@ -178,7 +178,7 @@ paths:
         409:
           description: El horario ya existe en la base de datos
 
-  /schedule/{email}:
+  /schedule/{email}/{month}/{year}:
     get:
       operationId: Schedule.get_schedule_info
       tags:
@@ -190,6 +190,16 @@ paths:
           in: path
           type: string
           description: Email del empleado
+          required: True
+        - name: month
+          in: path
+          type: string
+          description: Mes del registro horario
+          required: True
+        - name: year
+          in: path
+          type: string
+          description: Año del registro horario
           required: True
       responses:
         200:
@@ -299,7 +309,7 @@ paths:
         400:
           description: Error al intentar actualizar los datos de asistencia
                   
-  /attendance/{email}/{date}:
+  /attendance/{email}/{month}/{year}:
       get:
         operationId: Schedule.get_specific_attendance_info
         tags:
@@ -312,10 +322,15 @@ paths:
             type: string
             description: Email del empleado
             required: True
-          - name: date
+          - name: month
             in: path
             type: string
-            description: Fecha del registro de horario (formato -> yyyy-mm-dd)
+            description: Mes del registro horario
+            required: True
+          - name: year
+            in: path
+            type: string
+            description: Año del registro horario
             required: True
         responses:
           200:

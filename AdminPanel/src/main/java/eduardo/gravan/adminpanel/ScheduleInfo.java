@@ -34,10 +34,14 @@ public class ScheduleInfo extends javax.swing.JFrame {
         jLabelScheduleInfo = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable = new javax.swing.JTable();
+        jLabelMonth = new javax.swing.JLabel();
+        jLabelMonth1 = new javax.swing.JLabel();
+        jComboBoxMonth = new javax.swing.JComboBox<>();
+        jComboBoxYear = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("TFG - Admin Panel");
-        setPreferredSize(new java.awt.Dimension(550, 310));
+        setPreferredSize(new java.awt.Dimension(550, 400));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -83,6 +87,14 @@ public class ScheduleInfo extends javax.swing.JFrame {
         jTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTable);
 
+        jLabelMonth.setText("Mes a analizar");
+
+        jLabelMonth1.setText("Año a analizar");
+
+        jComboBoxMonth.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" }));
+
+        jComboBoxYear.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2020" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -93,11 +105,18 @@ public class ScheduleInfo extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelName)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jTextFieldEmail, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(jTextFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabelMonth, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabelMonth1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jComboBoxYear, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jComboBoxMonth, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButtonSearch1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jButtonSearch1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(75, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -105,13 +124,25 @@ public class ScheduleInfo extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(jLabelScheduleInfo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabelName)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButtonSearch1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextFieldEmail))
-                .addGap(27, 27, 27)
+                .addComponent(jTextFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabelMonth)
+                            .addComponent(jComboBoxMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(12, 12, 12)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabelMonth1)
+                            .addComponent(jComboBoxYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                        .addComponent(jButtonSearch1)
+                        .addGap(62, 62, 62)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(44, 44, 44))
         );
@@ -137,10 +168,15 @@ public class ScheduleInfo extends javax.swing.JFrame {
      */
     private void jButtonSearch1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearch1ActionPerformed
         String email = jTextFieldEmail.getText();
+        String month = (jComboBoxMonth.getSelectedIndex() > 8) 
+                ? "" + (1 + jComboBoxMonth.getSelectedIndex()) 
+                : "0" + (1 + jComboBoxMonth.getSelectedIndex());
+        String year = (String) jComboBoxYear.getSelectedItem();
+        
         if (email.equals("")) {
             JOptionPane.showMessageDialog(this, "Introduce el email del empleado a buscar", "Consultar información", JOptionPane.PLAIN_MESSAGE);
         } else {
-            sendHTTPRequest(email);
+            sendHTTPRequest(email, month, year);
         }
     }//GEN-LAST:event_jButtonSearch1ActionPerformed
 
@@ -153,12 +189,14 @@ public class ScheduleInfo extends javax.swing.JFrame {
      * se lee la respuesta y se llama a una función auxiliar para actualizar
      * la GUI. 
      * 
-     * @param email  string con el email del empleado sobre el que hacer la búsqueda
+     * @param email string con el email del empleado sobre el que hacer la búsqueda
+     * @param month mes del registro de horario que se quiere buscar
+     * @param year  año del registro de horario que se quiere buscar
      */
-    private void sendHTTPRequest(String email) {
+    private void sendHTTPRequest(String email, String month, String year) {
         try {
             // Configurar la llamada HTTP al servidor ReST
-            HttpURLConnection connection = (HttpURLConnection) new URL("http://192.168.1.136:8080/api/schedule/" + email).openConnection();
+            HttpURLConnection connection = (HttpURLConnection) new URL("http://192.168.1.136:8080/api/schedule/" + email + "/" + month + "/" + year).openConnection();
             connection.setConnectTimeout(5000);
             connection.setRequestMethod("GET");
             
@@ -213,13 +251,15 @@ public class ScheduleInfo extends javax.swing.JFrame {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonSearch;
     private javax.swing.JButton jButtonSearch1;
+    private javax.swing.JComboBox<String> jComboBoxMonth;
+    private javax.swing.JComboBox<String> jComboBoxYear;
+    private javax.swing.JLabel jLabelMonth;
+    private javax.swing.JLabel jLabelMonth1;
     private javax.swing.JLabel jLabelName;
     private javax.swing.JLabel jLabelScheduleInfo;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable;
     private javax.swing.JTextField jTextFieldEmail;
     // End of variables declaration//GEN-END:variables
-
 }

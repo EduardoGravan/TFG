@@ -5,20 +5,27 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
- * Clase que recoge la lógica de aplicación correspondiente a la ventana de
- * la GUI encargada de crear nuevos registros de horarios para los empleados.
+ * Clase que recoge la lógica de aplicación correspondiente a la ventana de la
+ * GUI encargada de crear nuevos registros de horarios para los empleados.
  */
 public class AddSchedule extends javax.swing.JFrame {
+
     private final MainMenu mainMenu;
-    private final String longMonths [];
+    private final String longMonths[];
 
     public AddSchedule(MainMenu mainMenu) {
         this.mainMenu = mainMenu;
-        longMonths = new String []{"0","2","4","6","7","9","11"};
+        longMonths = new String[]{"0", "2", "4", "6", "7", "9", "11"};
         initComponents();
     }
 
@@ -195,7 +202,9 @@ public class AddSchedule extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-     * Al cerrarse la ventana, la ventana del menú principal se vuelve a hacer visible
+     * Al cerrarse la ventana, la ventana del menú principal se vuelve a hacer
+     * visible
+     *
      * @param evt evento de swing
      */
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -203,9 +212,10 @@ public class AddSchedule extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     /**
-     * Esta funcion se encarga de gestionar el evento de selección de mes.
-     * Al seleccionar un mes, se actualiza la lista de días para que concuerden
-     * con los días que tiene ese mes (ej. Enero = 31, Febrero = 28, Abril = 30)
+     * Esta funcion se encarga de gestionar el evento de selección de mes. Al
+     * seleccionar un mes, se actualiza la lista de días para que concuerden con
+     * los días que tiene ese mes (ej. Enero = 31, Febrero = 28, Abril = 30)
+     *
      * @param evt evento de swing
      */
     private void jComboBoxMonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxMonthActionPerformed
@@ -214,28 +224,26 @@ public class AddSchedule extends javax.swing.JFrame {
         int selectedDay = jComboBoxDay.getSelectedIndex();
         jComboBoxDay.removeAllItems();
 
-        if(Arrays.asList(longMonths).contains(""+selectedItem)) {
-            for(int i = 1; i <= 31; i++) {
+        if (Arrays.asList(longMonths).contains("" + selectedItem)) {
+            for (int i = 1; i <= 31; i++) {
                 jComboBoxDay.addItem("" + i);
             }
             counter = 30;
-        }
-        else if(selectedItem == 1) {
-            for(int i = 1; i <= 28; i++) {
+        } else if (selectedItem == 1) {
+            for (int i = 1; i <= 28; i++) {
                 jComboBoxDay.addItem("" + i);
             }
             counter = 27;
-        }
-        else {
-            for(int i = 1; i <= 30; i++) {
+        } else {
+            for (int i = 1; i <= 30; i++) {
                 jComboBoxDay.addItem("" + i);
             }
             counter = 29;
         }
-        
+
         // Si se puede restaurar el día que estaba escogido después de regenerar
         // el combobox de los días, se restaura
-        if(selectedDay <= counter) {
+        if (selectedDay <= counter) {
             jComboBoxDay.setSelectedIndex(selectedDay);
         }
     }//GEN-LAST:event_jComboBoxMonthActionPerformed
@@ -243,43 +251,57 @@ public class AddSchedule extends javax.swing.JFrame {
     /**
      * Función que gestiona el evento de pulsar el botón para crear el registro
      * de horario. Se formatea el input de fecha para que esté en el formato
-     * correcto para la base de datos y, si todo está bien, se crea el JSON
-     * y se pasa a la función encargada de enviar la petición.
+     * correcto para la base de datos y, si todo está bien, se crea el JSON y se
+     * pasa a la función encargada de enviar la petición.
+     *
      * @param evt evento de swing
      */
     private void jButtonCreateRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreateRecordActionPerformed
-        String email = jTextFieldEmail.getText();
-        String day = (jComboBoxDay.getSelectedIndex() > 8)
-                ? (String) jComboBoxDay.getSelectedItem()
-                : (String) "0" + jComboBoxDay.getSelectedItem();
-        
-        String month = (jComboBoxMonth.getSelectedIndex() > 8) 
-                ? "" + (1 + jComboBoxMonth.getSelectedIndex()) 
-                : "0" + (1 + jComboBoxMonth.getSelectedIndex());
-        
-        String year = (String) jComboBoxYear.getSelectedItem();
-        String date = year + "-" + month + "-" + day;
-        
-        String startTime = (String) jComboBoxArriveTime.getSelectedItem() + ":00";
-        String endTime = (String) jComboBoxLeaveTime.getSelectedItem() + ":00";
+        try {
+            String email = jTextFieldEmail.getText();
+            String day = (jComboBoxDay.getSelectedIndex() > 8)
+                    ? (String) jComboBoxDay.getSelectedItem()
+                    : (String) "0" + jComboBoxDay.getSelectedItem();
 
-        if (email.equals("")) {
-            JOptionPane.showMessageDialog(this, "Error. Rellene los campos especificados.", "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-            String jsonRequest = "{\"email\": \"" + email + "\", \"date\": \"" + date + "\", "
-                    + "\"start_time\": \"" + startTime + "\", \"end_time\": \"" + endTime + "\"}";
-            sendHTTPRequest(jsonRequest);
+            String month = (jComboBoxMonth.getSelectedIndex() > 8)
+                    ? "" + (1 + jComboBoxMonth.getSelectedIndex())
+                    : "0" + (1 + jComboBoxMonth.getSelectedIndex());
+
+            String year = (String) jComboBoxYear.getSelectedItem();
+            String date = year + "-" + month + "-" + day;
+
+            DateFormat formatter = new SimpleDateFormat("HH:mm:ss");
+            String startTime = (String) jComboBoxArriveTime.getSelectedItem() + ":00";
+            String endTime = (String) jComboBoxLeaveTime.getSelectedItem() + ":00";
+
+            Date startTimeDate = formatter.parse(startTime);
+            Date endTimeDate = formatter.parse(endTime);
+
+            if (email.equals("")) {
+                JOptionPane.showMessageDialog(this, "Error. Rellene los campos especificados.", "Error", JOptionPane.ERROR_MESSAGE);
+            } 
+            else if (startTimeDate.after(endTimeDate) || startTimeDate.equals(endTimeDate)) {
+                JOptionPane.showMessageDialog(this, "Error. La hora de entrada no puede ser mayor o igual que la hora de salida.", "Error", JOptionPane.ERROR_MESSAGE);
+            } 
+            else {
+                String jsonRequest = "{\"email\": \"" + email + "\", \"date\": \"" + date + "\", "
+                        + "\"start_time\": \"" + startTime + "\", \"end_time\": \"" + endTime + "\"}";
+                sendHTTPRequest(jsonRequest);
+            }
+        } catch (ParseException ex) {
+            System.out.println(ex.getMessage());
         }
     }//GEN-LAST:event_jButtonCreateRecordActionPerformed
 
     /**
      * Función encargada de gestionar la petición HTTP al servidor ReST.
-     * Inicialmente, se configura los parámetros de la conexión HTTP y se escribe
-     * el cuerpo del paquete con el objeto JSON. Después, dependiendo del código
-     * de respuesta de la conexión, se notifica al usuario sacando un popup
-     * con un mensaje.
-     * 
-     * @param jsonRequest String con los datos necesarios para crear el registro de horario
+     * Inicialmente, se configura los parámetros de la conexión HTTP y se
+     * escribe el cuerpo del paquete con el objeto JSON. Después, dependiendo
+     * del código de respuesta de la conexión, se notifica al usuario sacando un
+     * popup con un mensaje.
+     *
+     * @param jsonRequest String con los datos necesarios para crear el registro
+     * de horario
      */
     private void sendHTTPRequest(String jsonRequest) {
         try {
@@ -289,25 +311,25 @@ public class AddSchedule extends javax.swing.JFrame {
             connection.setRequestMethod("POST");
             connection.setRequestProperty("Content-Type", "application/json");
             connection.setDoOutput(true);
-            
+
             // Escribir la petición JSON en el paquete
             OutputStream os = connection.getOutputStream();
             byte[] input = jsonRequest.getBytes(StandardCharsets.UTF_8);
             os.write(input, 0, input.length);
-            
+
             switch (connection.getResponseCode()) {
                 case 201:
                     JOptionPane.showMessageDialog(this, "Horario añadido correctamente", "Horario añadido", JOptionPane.INFORMATION_MESSAGE);
                     break;
-                    
+
                 case 400:
                     JOptionPane.showMessageDialog(this, "Error. El empleado no existe.", "Error", JOptionPane.ERROR_MESSAGE);
                     break;
-                    
+
                 case 409:
                     JOptionPane.showMessageDialog(this, "Error. El empleado ya tiene un horario para esa fecha.", "Error", JOptionPane.ERROR_MESSAGE);
                     break;
-                    
+
                 default:
                     JOptionPane.showMessageDialog(this, "Error. Ha ocurrido un error desconocido.", "Error", JOptionPane.ERROR_MESSAGE);
                     break;
@@ -318,7 +340,7 @@ public class AddSchedule extends javax.swing.JFrame {
             System.out.println(e.getMessage());
         }
     }
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCreateRecord;

@@ -265,3 +265,4 @@ public class AttendanceInfo extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldEmail;
     // End of variables declaration//GEN-END:variables
 }
+

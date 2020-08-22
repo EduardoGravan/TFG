@@ -71,7 +71,7 @@ public class EmulateNFCTagActivity extends AppCompatActivity {
      */
     private void showOkDialog(){
         new AlertDialog.Builder(this)
-                .setTitle("Emulación de tarjeta")
+                .setTitle("Emulación de etiqueta")
                 .setMessage("La información se ha recibido correctamente")
                 .setPositiveButton(android.R.string.ok, null)
                 .setIcon(android.R.drawable.ic_dialog_info)
@@ -84,8 +84,8 @@ public class EmulateNFCTagActivity extends AppCompatActivity {
      */
     private void showErrorDialog(){
         new AlertDialog.Builder(this)
-                .setTitle("Emulación de tarjeta")
-                .setMessage("Error al enviar la información de la tarjeta. Inténtelo de nuevo")
+                .setTitle("Emulación de etiqueta")
+                .setMessage("Error al enviar la información de la etiqueta. Inténtelo de nuevo")
                 .setPositiveButton(android.R.string.ok, null)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .create().show();

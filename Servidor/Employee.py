@@ -28,7 +28,7 @@ def login(employee):
     con.row_factory = sqlite3.Row
     cursor = con.cursor()
 
-    cursor.execute(f"SELECT * FROM Employee WHERE email=\'{username}\' AND password=\'{password}\'")
+    cursor.execute(f"SELECT email, name, is_admin FROM Employee WHERE email=\'{username}\' AND password=\'{password}\'")
 
     result = cursor.fetchall()
     cursor.close()
